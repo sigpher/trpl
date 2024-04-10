@@ -1,6 +1,6 @@
 [workspace]
 resolver = "2"
-members = ["ch01", "ch02", "ch03", "ch04"]
+members = ["ch01", "ch02", "ch03", "ch04", "ch05"]
 
 [workspace.package]
 version = "0.1.0"
