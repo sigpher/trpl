@@ -1,13 +1,20 @@
-use std::{env, fs};
+use std::{env, process};
+
+use ch12::{run, Config};
 
 fn main() {
     let args = env::args().collect::<Vec<String>>();
 
-    let query = &args[1];
-    let file_path = &args[2];
-    println!("Searching for {query}");
-    println!("In file {file_path}");
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
+    println!("Searching for {}", config.query);
+    println!("In file {}", config.file_path);
 
-    let contents = fs::read_to_string(file_path).expect("Should have been able to read the file");
-    println!("With text:\n{contents}");
+    if let Err(e) = run(config){
+        println!("Application error: {e}");
+        process::exit(1)
+    }
 }
+
