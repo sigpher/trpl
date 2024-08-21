@@ -57,8 +57,31 @@ impl<T> Selection<T> {
 }
 
 #[derive(Debug)]
-pub struct Rectangle <'a>{
+pub struct Rectangle<'a> {
     pub width: u32,
     pub height: u32,
     pub lable: &'a str,
+}
+
+#[test]
+fn iterator_demonstration() {
+    let mut list = vec![1, 2, 3];
+
+    let mut list_iter = list.iter();
+    assert_eq!(list_iter.next(), Some(&1));
+    assert_eq!(list_iter.next(), Some(&2));
+    assert_eq!(list_iter.next(), Some(&3));
+    assert_eq!(list_iter.next(), None);
+    assert_eq!(list_iter.next(), None);
+
+    let list_iter_mut = list.iter_mut();
+    for item in list_iter_mut {
+        *item += 1;
+    }
+    assert_eq!(list, vec![2, 3, 4]);
+
+    let total = list.iter().sum::<i32>();
+    assert_eq!(total,9);
+
+    // let total
 }

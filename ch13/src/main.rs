@@ -95,4 +95,12 @@ fn main() {
     list.sort_by_key(|r: &Rectangle| r.lable);
 
     println!("{list:?}");
+
+    let list = vec![1, 2, 3];
+
+    let list_iter = list.iter();
+
+    for item in list_iter {
+        println!("{item}");
+    }
 }
