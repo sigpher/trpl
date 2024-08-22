@@ -63,6 +63,18 @@ pub struct Rectangle<'a> {
     pub lable: &'a str,
 }
 
+pub mod shoes {
+    #[derive(Debug, PartialEq, PartialOrd)]
+    pub struct Shoe {
+        pub size: u8,
+        pub style: String,
+    }
+
+    pub fn shoes_in_size(shoes: Vec<Shoe>, shoe_size: u8) -> Vec<Shoe> {
+        shoes.into_iter().filter(|s| s.size == shoe_size).collect()
+    }
+}
+
 #[test]
 fn iterator_demonstration() {
     let mut list = vec![1, 2, 3];
@@ -81,7 +93,48 @@ fn iterator_demonstration() {
     assert_eq!(list, vec![2, 3, 4]);
 
     let total = list.iter().sum::<i32>();
-    assert_eq!(total,9);
+    assert_eq!(total, 9);
 
     // let total
+}
+
+#[cfg(test)]
+mod test {
+
+    use shoes::Shoe;
+
+    use super::*;
+
+    #[test]
+    fn filters_by_size() {
+        let shoes = vec![
+            Shoe {
+                size: 10,
+                style: String::from("sneaker"),
+            },
+            Shoe {
+                size: 13,
+                style: String::from("sandal"),
+            },
+            Shoe {
+                size: 10,
+                style: String::from("boot"),
+            },
+        ];
+
+        let in_my_size = shoes::shoes_in_size(shoes, 10);
+        assert_eq!(
+            in_my_size,
+            vec![
+                Shoe {
+                    size: 10,
+                    style: String::from("boot")
+                },
+                Shoe {
+                    size: 10,
+                    style: String::from("sneaker")
+                },
+            ]
+        );
+    }
 }
